@@ -1,0 +1,16 @@
+create database lalaLA:
+
+use lalaLA:
+
+create table luluLU(
+
+    data e hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    id auto increment primary key,
+
+    velocidade,
+
+    rpm
+);
+
+select * from luluLU 

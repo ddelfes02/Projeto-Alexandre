@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Telemetria da Moto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .dashboard {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        .painel-dados {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .pista {
+            width: 100%;
+            height: 100px;
+            background-color: #333;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        /* Animação do cenário de fundo */
+        .pista::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                #333 0%, #333 50%, 
+                #555 50%, #555 100%
+                );
+            background-size: 40px 100%;
+            animation: rolarPista 1s linear infinite;
+            animation-play-state: running;
+        }
+
+        .moto {
+            position: absolute;
+            bottom: 20px;
+            left: 270px;
+            font-size: 50px;
+            z-index: 2;
+        }
+
+        @keyframes rolarPista {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-40px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <div class="painel-dados">
+            <p>Velocidade: <span id="velocidade">0</span> km/h</p>
+            <p>RPM: <span id="rpm">0</span></p>
+        </div>
+
+        <div class="pista">
+            <div class="moto">🏍️</div>
+        </div>
+    </div>
+
+    <script>
+        
+        function atualizarDados() {
+
+            // Inconsistência: O endereço mapeado no método fetch aponta para um arquivo inexistente.   CORRETO
+            
+            fetch('buscar_ultimo.php')
+            .then(response => response.json())
+            .then(data => {
+            
+            // Certifique-se de que as propriedades do objeto 'data' condizem com o JSON da API.     CORRETO
+            
+            document.getElementById('velocidade').innerText = data.velocidade;
+            
+            document.getElementById('rpm').innerText = data.rpm;
+            })
+            .catch(error => console.log("Falha na requisição dos dados:",
+            error));
+            }
+            
+            // Inicialização do ciclo de atualização
+            
+            atualizarDados();
+            setInterval(atualizarDados, 1000); // Ciclo de repetição fixado em 1 segundo.
+
+            if (rpm > 0) {
+                // Exemplo: se o RPM max for 8000, ajuste o divisor.
+                const duracaoAnimacao = Math.max(0.1, 800 / rpm); 
+                document.styleSheets[0].rules[6].style.animationDuration = `${duracaoAnimacao}s`;
+                document.styleSheets[0].rules[6].style.animationPlayState = 'running';
+            } else {
+                document.styleSheets[0].rules[6].style.animationPlayState = 'paused';
+            }
+        
+
+        
+    </script>
+</body>
+</html>
