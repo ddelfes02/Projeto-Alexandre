@@ -1,0 +1,16 @@
+create database ole_ole_ole___ole_ole_ola__neymaaaar_neymaaar;
+
+use ole_ole_ole___ole_ole_ola__neymaaaar_neymaaar;
+
+create table Athletiba(
+
+    id int auto_increment primary key,
+    
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    velocidade int,
+
+    rpm float
+);
+
+select * from Athletiba
