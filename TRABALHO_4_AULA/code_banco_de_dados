@@ -1,0 +1,16 @@
+create database sesi_projeto;
+
+use sesi_projeto;
+
+create table borlai(
+
+    id int auto_increment primary key,
+    
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    velocidade int,
+
+    rpm float
+);
+
+select * from borlai
